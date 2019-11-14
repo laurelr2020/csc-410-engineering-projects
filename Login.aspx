@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Button ID="loginButton" runat="server" Text="Login"  />
+                    <asp:Button ID="loginButton" runat="server" Text="Login" OnClick="Login_Click" />
                 </td>
             </tr>
         </table>
@@ -42,6 +42,18 @@
         </p>
 
         <asp:Label ID="statusLabel" runat="server" Text="" EnableViewState="false"></asp:Label>
+
+        <asp:SqlDataSource ID="loginDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+            SelectCommand="SELECT * 
+                           FROM [Users] 
+                           WHERE (([Username] = @Username) 
+                            AND ([Pass] = @Pass))">
+            <SelectParameters>
+                <asp:ControlParameter ControlID="usernameTextBox" Name="Username" PropertyName="Text" Type="String" />
+                <asp:ControlParameter ControlID="passwordTextBox" Name="Pass" PropertyName="Text" Type="String" />
+            </SelectParameters>
+        </asp:SqlDataSource>
+
     </form>
 </body>
 </html>
