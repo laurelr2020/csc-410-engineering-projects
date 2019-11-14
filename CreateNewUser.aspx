@@ -80,6 +80,8 @@
             </tr>
         </table>
         <asp:Button ID="createUserButton" runat="server" Text="Create" OnClick="CreateUser_Click"/>
+        
+        <asp:Label ID="statusLabel" runat="server" Text="" EnableViewState="false"></asp:Label>
 
         <asp:SqlDataSource ID="createNewUserDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
             InsertCommand="INSERT INTO [Users] ([Username], [FirstName], [LastName], [Email], [PhoneNumber], [Title], [UserType], [Company], [Pass]) 
