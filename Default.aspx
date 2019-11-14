@@ -16,9 +16,10 @@
                   ForeColor="Black"
               />
                 <Items>
-                    <asp:MenuItem Text="Admin" Value="0"></asp:MenuItem>
-                    <asp:MenuItem Text="User" Value="1"></asp:MenuItem>
-                    <asp:MenuItem Text="Login" Value="2"></asp:MenuItem>
+                    <asp:MenuItem Text="Add Proposal"></asp:MenuItem>
+                    <asp:MenuItem Text="Update Proposal"></asp:MenuItem>
+                    <asp:MenuItem Text="View Users"></asp:MenuItem>
+                    <asp:MenuItem Text="Login"></asp:MenuItem>
                 </Items>
             </asp:Menu>
             <br />
