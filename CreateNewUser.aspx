@@ -12,7 +12,7 @@
         <tr>
              <td colspan="2">
                     <h2>Create New User</h2>
-                </td>
+            </td>
             </tr>
             <tr>
                 <td>
@@ -37,6 +37,7 @@
                 <td>
                     <asp:TextBox ID="emailTextBox" runat="server"></asp:TextBox>
                 </td>
+            </tr>
             <tr>
                 <td>
                     <asp:Label ID="phoneNumberLabel" runat="server" Text="Phone Number:"></asp:Label>
@@ -45,8 +46,7 @@
                     <asp:TextBox ID="phoneNumberTextBox" runat="server"></asp:TextBox>
                 </td>
             </tr>
-            </tr>
-        <tr>
+            <tr>
                 <td>
                     <asp:Label ID="jobTitleLabel" runat="server" Text="Job Title:"></asp:Label>
                 </td>
@@ -54,7 +54,7 @@
                     <asp:TextBox ID="jobTitleTextBox" runat="server"></asp:TextBox>
                 </td>
             </tr>
-                <tr>
+            <tr>
                 <td>
                     <asp:Label ID="companyNameLabel" runat="server" Text="Company Name:"></asp:Label>
                 </td>
@@ -62,7 +62,7 @@
                     <asp:TextBox ID="companyNameTextBox" runat="server"></asp:TextBox>
                 </td>
             </tr>
-                <tr>
+            <tr>
                 <td>
                     <asp:Label ID="usernameLabel" runat="server" Text="Username:"></asp:Label>
                 </td>
@@ -80,6 +80,23 @@
             </tr>
         </table>
         <asp:Button ID="createUserButton" runat="server" Text="Create" />
+
+        <asp:SqlDataSource ID="createNewUserDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+            InsertCommand="INSERT INTO [Users] ([Username], [FirstName], [LastName], [Email], [PhoneNumber], [Title], [UserType], [Company], [Pass]) 
+                           VALUES (@Username, @FirstName, @LastName, @Email, @PhoneNumber, @Title, @UserType, @Company, @Pass)" >
+            <InsertParameters>
+                <asp:Parameter Name="Username" Type="String" />
+                <asp:Parameter Name="FirstName" Type="String" />
+                <asp:Parameter Name="LastName" Type="String" />
+                <asp:Parameter Name="Email" Type="String" />
+                <asp:Parameter Name="PhoneNumber" Type="Int32" />
+                <asp:Parameter Name="Title" Type="String" />
+                <asp:Parameter Name="UserType" Type="Int32" />
+                <asp:Parameter Name="Company" Type="String" />
+                <asp:Parameter Name="Pass" Type="String" />
+            </InsertParameters>
+        </asp:SqlDataSource>
+
     </form>
 </body>
 </html>
