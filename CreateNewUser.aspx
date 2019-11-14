@@ -35,7 +35,7 @@
                     <asp:Label ID="emailLabel" runat="server" Text="Email:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="emailTextBox" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="emailTextBox" runat="server" TextMode="Email"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -43,7 +43,7 @@
                     <asp:Label ID="phoneNumberLabel" runat="server" Text="Phone Number:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="phoneNumberTextBox" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="phoneNumberTextBox" runat="server" TextMode="Phone"></asp:TextBox>
                 </td>
             </tr>
             <tr>
@@ -70,16 +70,16 @@
                     <asp:TextBox ID="usernameTextBox" runat="server"></asp:TextBox>
                 </td>
             </tr>
-                <tr>
+            <tr>
                 <td>
                     <asp:Label ID="passwordLabel" runat="server" Text="Password:" TextMode="Password"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="passwordTextBox" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="passwordTextBox" runat="server" TextMode="Password"></asp:TextBox>
                 </td>
             </tr>
         </table>
-        <asp:Button ID="createUserButton" runat="server" Text="Create" />
+        <asp:Button ID="createUserButton" runat="server" Text="Create" OnClick="CreateUser_Click"/>
 
         <asp:SqlDataSource ID="createNewUserDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
             InsertCommand="INSERT INTO [Users] ([Username], [FirstName], [LastName], [Email], [PhoneNumber], [Title], [UserType], [Company], [Pass]) 
