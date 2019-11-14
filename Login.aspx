@@ -38,7 +38,7 @@
         </table>
          <p>
             Don't have a log in?
-            <asp:Button ID="createButton" runat="server" Text="Create New User"  />
+            <asp:Button ID="createButton" runat="server" Text="Create New User" OnClick="createButton_Click"  />
         </p>
 
         <asp:Label ID="statusLabel" runat="server" Text="" EnableViewState="false"></asp:Label>
