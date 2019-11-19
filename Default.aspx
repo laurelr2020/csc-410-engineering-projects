@@ -36,6 +36,10 @@
             <asp:DropDownList ID="ddlClientType" runat="server">
             </asp:DropDownList>
             <br />
+            <br />
+            <asp:Button ID="btnSearch" runat="server" Text="Search" />
+            <br />
+            <br />
             <asp:GridView ID="gvProjects" runat="server">
                 <%--Columns: Status, Title, OrgCategory, ClientType, TypeOfNeed, Description, DateSubmitted, DateUpdated--%>
             </asp:GridView>
