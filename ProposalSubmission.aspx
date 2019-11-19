@@ -22,11 +22,11 @@
 
       <tr>
         <td>
-             <asp:Label ID="clientLabel" runat="server" Text="Enter Client or Sponser"></asp:Label>
+            <asp:Label ID="clientLabel" runat="server" Text="Enter Client or Sponser"></asp:Label>
             <br />
             <asp:TextBox ID="clientText" runat="server" Width="240px" Height="22px"></asp:TextBox>
         </td>
-          <br />
+
         <td>
             <asp:Label ID="clientTypeLabel" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
             <br />
@@ -34,30 +34,28 @@
         </td>
       </tr>
       <tr>
-          <td>
-        <asp:Label ID="companyLabel" runat="server" Text="Enter Company"></asp:Label>
-        <br />
-        <asp:TextBox ID="companyText" runat="server" Height="16px" Width="240px"></asp:TextBox>
-          </td>
-          <td>
-              <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
+        <td>
+            <asp:Label ID="companyLabel" runat="server" Text="Enter Company"></asp:Label>
             <br />
-           <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="19px" Width="200px"></asp:DropDownList>
-       </td>
+            <asp:TextBox ID="companyText" runat="server" Height="16px" Width="240px"></asp:TextBox>
+        </td>
+        <td>
+            <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
+            <br />
+            <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="19px" Width="200px"></asp:DropDownList>
+        </td>
 
       </tr>
       <tr>
           <td>
-        <asp:Label ID="proposalLabel" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
-              <br />
-        <asp:TextBox ID="proposalDescriptionText" runat="server" Height="161px" Width="392px" ></asp:TextBox>
-          <br />
-        <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" />
+            <asp:Label ID="proposalLabel" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
+            <br />
+            <asp:TextBox ID="proposalDescriptionText" runat="server" Height="161px" Width="392px" ></asp:TextBox>
+            <br />
+            <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" />
        </td>
      </tr>
         </table>
-
-
 
     </form>
 </body>
