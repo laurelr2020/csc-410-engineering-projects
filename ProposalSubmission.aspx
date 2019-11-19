@@ -30,7 +30,15 @@
         <td>
             <asp:Label ID="clientTypeLabel" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
             <br />
-            <asp:DropDownList ID="clientTypeDropDown" runat="server" Height="16px" Width="186px"></asp:DropDownList>
+            <asp:DropDownList ID="clientTypeDropDown" runat="server" Height="20px" Width="186px" AutoPostBack="true"
+                DataSourceID="cleintTypeDataSource"
+                DataTextField="ClientType"
+                DataValueField="ClientType"></asp:DropDownList>
+
+            <asp:SqlDataSource ID="cleintTypeDataSource" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [ClientType] FROM [ClientType]">
+            </asp:SqlDataSource>
         </td>
       </tr>
       <tr>
@@ -42,7 +50,7 @@
         <td>
             <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
             <br />
-            <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="19px" Width="200px"></asp:DropDownList>
+            <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="20px" Width="200px"></asp:DropDownList>
         </td>
 
       </tr>
@@ -57,6 +65,10 @@
        <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" OnClick="ProposalSubmission_Click" />
         <br />
         <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label>
+
+
+        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server"></asp:SqlDataSource>
+
     </form>
 </body>
 </html>
