@@ -22,34 +22,31 @@
     
       <tr>
         <td>   
-        <asp:TextBox ID="txtClient" runat="server" Width="240px"></asp:TextBox>
+        <asp:TextBox ID="txtClient" runat="server" Width="240px" Height="22px"></asp:TextBox>
         </td>
+          <br />
         <td>
-        <asp:DropDownList ID="ddlClientType" runat="server"></asp:DropDownList>
+        <asp:DropDownList ID="ddlClientType" runat="server" Height="16px" Width="186px"></asp:DropDownList>
         </td>
       </tr>
       <tr>
           <td>
         <asp:Label ID="lblCompany" runat="server" Text="Enter Company"></asp:Label>
-          </td>
-          <td>
+        <br />
         <asp:TextBox ID="txtCompany" runat="server" Height="16px" Width="240px"></asp:TextBox>
           </td>
-   
-        
-      <tr> 
-          <td>
-        <asp:Label ID="lblCategory" runat="server" Text="Choose a Organizational Category"></asp:Label>
-        </td>
-        <td>
-        <asp:DropDownList ID="ddlCategory" runat="server" Height="17px" Width="183px"></asp:DropDownList>
-        </td>
+          <td> 
+              <asp:Label ID="Label2" runat="server" Text="Choose a Organizational Category"></asp:Label>
+            <br />
+           <asp:DropDownList ID="DropDownList1" runat="server" Height="19px" Width="200px"></asp:DropDownList> 
+       </td>
+
       </tr>   
       <tr>
           <td>
         <asp:Label ID="lblProposal" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
               <br />
-        <asp:TextBox ID="txtDescription" runat="server" Height="163px" Width="446px"></asp:TextBox> 
+        <asp:TextBox ID="txtDescription" runat="server" Height="161px" Width="392px"></asp:TextBox> 
           <br />
         <asp:Button ID="Submit" runat="server" Text="Submit Proposal" />
        </td>
