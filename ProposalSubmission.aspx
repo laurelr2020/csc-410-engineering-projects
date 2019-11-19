@@ -30,7 +30,7 @@
         <td>
             <asp:Label ID="clientTypeLabel" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
             <br />
-            <asp:DropDownList ID="clientTypeDropDown" runat="server" Height="20px" Width="186px" AutoPostBack="true"
+            <asp:DropDownList ID="clientTypeDropDown" runat="server" Height="20px" AutoPostBack="true"
                 DataSourceID="cleintTypeDataSource"
                 DataTextField="ClientType"
                 DataValueField="ClientType"></asp:DropDownList>
@@ -50,7 +50,16 @@
         <td>
             <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
             <br />
-            <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="20px" Width="200px"></asp:DropDownList>
+            <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="20px" AutoPostBack="true"
+                DataSourceID="orgCategoryDataSource"
+                DataTextField="OrganizationCategory"
+                DataValueField="OrganizationCategory"></asp:DropDownList>
+
+            <asp:SqlDataSource ID="orgCategoryDataSource" runat="server"
+                ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [OrganizationCategory] FROM [OrgCategory]">
+            </asp:SqlDataSource>
+
         </td>
 
       </tr>
