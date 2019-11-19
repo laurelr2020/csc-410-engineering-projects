@@ -12,16 +12,16 @@
 
   <table>
      <tr>
-        <td>     
+        <td>
         <asp:Label ID="lblClient" runat="server" Text="Enter Client or Sponser"></asp:Label>
         </td>
         <td>
         <asp:Label ID="lblClientType" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
         </td>
-     </tr>        
-    
+     </tr>
+
       <tr>
-        <td>   
+        <td>
         <asp:TextBox ID="txtClient" runat="server" Width="240px" Height="22px"></asp:TextBox>
         </td>
           <br />
@@ -35,18 +35,18 @@
         <br />
         <asp:TextBox ID="txtCompany" runat="server" Height="16px" Width="240px"></asp:TextBox>
           </td>
-          <td> 
+          <td>
               <asp:Label ID="Label2" runat="server" Text="Choose a Organizational Category"></asp:Label>
             <br />
-           <asp:DropDownList ID="DropDownList1" runat="server" Height="19px" Width="200px"></asp:DropDownList> 
+           <asp:DropDownList ID="DropDownList1" runat="server" Height="19px" Width="200px"></asp:DropDownList>
        </td>
 
-      </tr>   
+      </tr>
       <tr>
           <td>
         <asp:Label ID="lblProposal" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
               <br />
-        <asp:TextBox ID="txtDescription" runat="server" Height="161px" Width="392px"></asp:TextBox> 
+        <asp:TextBox ID="txtDescription" runat="server" Height="161px" Width="392px"></asp:TextBox>
           <br />
         <asp:Button ID="Submit" runat="server" Text="Submit Proposal" />
        </td>
