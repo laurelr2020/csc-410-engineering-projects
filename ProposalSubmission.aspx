@@ -51,12 +51,12 @@
             <asp:Label ID="proposalLabel" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
             <br />
             <asp:TextBox ID="proposalDescriptionText" runat="server" Height="161px" Width="392px" ></asp:TextBox>
-            <br />
-            <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" />
        </td>
      </tr>
-        </table>
-
+    </table>
+       <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" OnClick="ProposalSubmission_Click" />
+        <br />
+        <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label>
     </form>
 </body>
 </html>
