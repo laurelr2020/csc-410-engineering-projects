@@ -59,7 +59,6 @@
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
                 SelectCommand="SELECT [OrganizationCategory] FROM [OrgCategory]">
             </asp:SqlDataSource>
-
         </td>
 
       </tr>
@@ -75,8 +74,19 @@
         <br />
         <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label>
 
-
-        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server"></asp:SqlDataSource>
+        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
+            InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], [Comments]) 
+                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory, @Comments)" >
+            <InsertParameters>
+                <asp:Parameter Name="TypeOfNeed" Type="String" />
+                <asp:Parameter Name="Description" Type="String" />
+                <asp:Parameter Name="Title" Type="String" />
+                <asp:Parameter Name="ClientType" Type="String" />
+                <asp:Parameter Name="OrganizationCategory" Type="String" />
+                <asp:Parameter Name="Comments" Type="String" />
+            </InsertParameters>
+        </asp:SqlDataSource>
 
     </form>
 </body>
