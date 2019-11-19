@@ -9,12 +9,12 @@ public partial class ProposalSubmission : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+       
     }
 
     protected void ProposalSubmission_Click(object sender, EventArgs e)
     {
-
+       
 
         if (allFieldsFilledIn())
         {
@@ -33,14 +33,6 @@ public partial class ProposalSubmission : System.Web.UI.Page
             statusLabel.Text = "Please enter information for all fields";
         }
 
-        firstNameTextBox.Text = "";
-        lastNameTextBox.Text = "";
-        emailTextBox.Text = "";
-        phoneNumberTextBox.Text = "";
-        jobTitleTextBox.Text = "";
-        companyNameTextBox.Text = "";
-        usernameTextBox.Text = "";
-        passwordTextBox.Text = "";
     }
 
     private string replaceSingleQuote(string dataField)
@@ -50,20 +42,21 @@ public partial class ProposalSubmission : System.Web.UI.Page
 
     private bool allFieldsFilledIn()
     {
-        if (email.Length > 0 || phoneNumber.Length > 0)
-        {
-            if (name.Length > 0 && company.Length > 0 && username.Length > 0 && password.Length > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
-        }
+        //if (email.Length > 0 || phoneNumber.Length > 0)
+        //{
+        //    if (name.Length > 0 && company.Length > 0 && username.Length > 0 && password.Length > 0)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
+        //}
+        //else
+        //{
+        //    return false;
+        //}
+        return false;
     }
 }
