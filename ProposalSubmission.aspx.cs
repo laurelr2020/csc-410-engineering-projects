@@ -9,7 +9,13 @@ public partial class ProposalSubmission : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-       
+        clientTypeDropDown.DataSource = cleintTypeDataSource;
+        clientTypeDropDown.DataBind();
+        clientTypeDropDown.Items.Insert(0, new ListItem("Select", "%"));
+
+        orgCategoryDropDown.DataSource = orgCategoryDataSource;
+        orgCategoryDropDown.DataBind();
+        orgCategoryDropDown.Items.Insert(0, new ListItem("Select", "%"));
     }
 
     protected void ProposalSubmission_Click(object sender, EventArgs e)
