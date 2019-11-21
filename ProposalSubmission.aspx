@@ -19,14 +19,19 @@
 
          </td>
      </tr>
-
       <tr>
         <td>
-            <asp:Label ID="clientLabel" runat="server" Text="Enter Client or Sponser"></asp:Label>
+            <asp:Label ID="needLabel" runat="server" Text="Choose a Type of Need"></asp:Label>
             <br />
-            <asp:TextBox ID="clientText" runat="server" Width="240px" Height="22px"></asp:TextBox>
+            <asp:DropDownList ID="needDropDown" runat="server"
+                DataTextField="TypeOfNeed"
+                DataValueField="TypeOfNeed"></asp:DropDownList>
+            <asp:SqlDataSource ID="needDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [TypeOfNeed] FROM [Need]">
+            </asp:SqlDataSource>
         </td>
-
+      </tr>
+      <tr>
         <td>
             <asp:Label ID="clientTypeLabel" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
             <br />
@@ -42,11 +47,6 @@
       </tr>
       <tr>
         <td>
-            <asp:Label ID="companyLabel" runat="server" Text="Enter Company"></asp:Label>
-            <br />
-            <asp:TextBox ID="companyText" runat="server" Height="16px" Width="240px"></asp:TextBox>
-        </td>
-        <td>
             <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
             <br />
             <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="20px" AutoPostBack="true"
@@ -58,7 +58,6 @@
                 SelectCommand="SELECT [OrganizationCategory] FROM [OrgCategory]">
             </asp:SqlDataSource>
         </td>
-
       </tr>
       <tr>
           <td>
