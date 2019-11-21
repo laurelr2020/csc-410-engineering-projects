@@ -74,15 +74,14 @@
 
         <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
             ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
-            InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], [Comments]) 
-                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory, @Comments)" >
+            InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
+                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)" >
             <InsertParameters>
                 <asp:Parameter Name="TypeOfNeed" Type="String" />
                 <asp:Parameter Name="Description" Type="String" />
                 <asp:Parameter Name="Title" Type="String" />
                 <asp:Parameter Name="ClientType" Type="String" />
                 <asp:Parameter Name="OrganizationCategory" Type="String" />
-                <asp:Parameter Name="Comments" Type="String" />
             </InsertParameters>
         </asp:SqlDataSource>
 
