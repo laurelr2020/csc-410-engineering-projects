@@ -9,6 +9,10 @@ public partial class ProposalSubmission : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        needDropDown.DataSource = needDataSource;
+        needDropDown.DataBind();
+        needDropDown.Items.Insert(0, new ListItem("Select", "%"));
+
         clientTypeDropDown.DataSource = cleintTypeDataSource;
         clientTypeDropDown.DataBind();
         clientTypeDropDown.Items.Insert(0, new ListItem("Select", "%"));
@@ -21,17 +25,24 @@ public partial class ProposalSubmission : System.Web.UI.Page
     protected void ProposalSubmission_Click(object sender, EventArgs e)
     {
         string projectTitle = titleText.Text;
-        string projectClient = clientText.Text;
-        string projectClientType = clientTypeDropDown.SelectedItem.Text;
-        string projectCompany = companyText.Text;
-        string projectCategory = orgCategoryDropDown.SelectedItem.Text;
-        string projectDescription = proposalDescriptionText.Text;
+        projectTitle = replaceSingleQuote(projectTitle);
 
-        if (allFieldsFilledIn(projectTitle, projectClient, projectCompany, projectDescription, projectClientType, projectCategory))
+        string projectDescription = proposalDescriptionText.Text;
+        projectDescription = replaceSingleQuote(projectDescription);
+
+        string projectNeed = needDropDown.SelectedItem.Text;
+        string projectClientType = clientTypeDropDown.SelectedItem.Text;
+        string projectCategory = orgCategoryDropDown.SelectedItem.Text;
+
+        //This is a test to see if this is working and I am typing in the middle of the text box so this is something that i will need to checkout later and i also need to check for max number of characters.
+
+        if (allFieldsFilledIn(projectTitle, projectDescription, projectNeed, projectClientType, projectCategory))
         {
             proposalSubmissionDataSource.InsertParameters["Title"].DefaultValue = projectTitle;
-            //proposalSubmissionDataSource.InsertParameters[""]
-
+            proposalSubmissionDataSource.InsertParameters["Description"].DefaultValue = projectDescription;
+            proposalSubmissionDataSource.InsertParameters["TypeOfNeed"].DefaultValue = projectNeed;
+            proposalSubmissionDataSource.InsertParameters["ClientType"].DefaultValue = projectClientType;
+            proposalSubmissionDataSource.InsertParameters["OrganizationCategory"].DefaultValue = projectCategory;
 
             try
             {
@@ -46,7 +57,6 @@ public partial class ProposalSubmission : System.Web.UI.Page
         {
             statusLabel.Text = "Please enter information for all fields";
         }
-
     }
 
     private string replaceSingleQuote(string dataField)
@@ -54,13 +64,13 @@ public partial class ProposalSubmission : System.Web.UI.Page
         return dataField.Replace("'", "");
     }
 
-    private bool allFieldsFilledIn(string title, string client, string company, string description, string clientType, string category)
+    private bool allFieldsFilledIn(string title, string description, string need, string clientType, string category)
     {
-        if (clientType.Equals("Select") || category.Equals("Select"))
+        if (clientType.Equals("Select") || category.Equals("Select") || need.Equals("Select"))
         {
             return false;
         }
-        else if(title.Length > 0 && client.Length > 0 && company.Length > 0 && description.Length > 0 )
+        else if(title.Length > 0 && description.Length > 0 )
         {
             return true;
         }

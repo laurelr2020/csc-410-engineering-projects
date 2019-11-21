@@ -23,7 +23,7 @@
         <td>
             <asp:Label ID="needLabel" runat="server" Text="Choose a Type of Need"></asp:Label>
             <br />
-            <asp:DropDownList ID="needDropDown" runat="server"
+            <asp:DropDownList ID="needDropDown" runat="server" AutoPostBack="False"
                 DataTextField="TypeOfNeed"
                 DataValueField="TypeOfNeed"></asp:DropDownList>
             <asp:SqlDataSource ID="needDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
@@ -35,7 +35,7 @@
         <td>
             <asp:Label ID="clientTypeLabel" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
             <br />
-            <asp:DropDownList ID="clientTypeDropDown" runat="server" Height="20px" AutoPostBack="true"
+            <asp:DropDownList ID="clientTypeDropDown" runat="server" AutoPostBack="False"
                 DataTextField="ClientType"
                 DataValueField="ClientType"></asp:DropDownList>
 
@@ -49,7 +49,7 @@
         <td>
             <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
             <br />
-            <asp:DropDownList ID="orgCategoryDropDown" runat="server" Height="20px" AutoPostBack="true"
+            <asp:DropDownList ID="orgCategoryDropDown" runat="server" AutoPostBack="False"
                 DataTextField="OrganizationCategory"
                 DataValueField="OrganizationCategory"></asp:DropDownList>
 
@@ -67,7 +67,7 @@
        </td>
      </tr>
     </table>
-       <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" OnClick="ProposalSubmission_Click" />
+       <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" AutoPostBack="False" OnClick="ProposalSubmission_Click" />
         <br />
         <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label>
 
