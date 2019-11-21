@@ -20,10 +20,18 @@ public partial class ProposalSubmission : System.Web.UI.Page
 
     protected void ProposalSubmission_Click(object sender, EventArgs e)
     {
-       
+        string projectTitle = titleText.Text;
+        string projectClient = clientText.Text;
+        string projectClientType = clientTypeDropDown.SelectedItem.Text;
+        string projectCompany = companyText.Text;
+        string projectCategory = orgCategoryDropDown.SelectedItem.Text;
+        string projectDescription = proposalDescriptionText.Text;
 
-        if (allFieldsFilledIn())
+        if (allFieldsFilledIn(projectTitle, projectClient, projectCompany, projectDescription, projectClientType, projectCategory))
         {
+            proposalSubmissionDataSource.InsertParameters["Title"].DefaultValue = projectTitle;
+            //proposalSubmissionDataSource.InsertParameters[""]
+
 
             try
             {
@@ -46,23 +54,19 @@ public partial class ProposalSubmission : System.Web.UI.Page
         return dataField.Replace("'", "");
     }
 
-    private bool allFieldsFilledIn()
+    private bool allFieldsFilledIn(string title, string client, string company, string description, string clientType, string category)
     {
-        //if (email.Length > 0 || phoneNumber.Length > 0)
-        //{
-        //    if (name.Length > 0 && company.Length > 0 && username.Length > 0 && password.Length > 0)
-        //    {
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-        //else
-        //{
-        //    return false;
-        //}
-        return false;
+        if (clientType.Equals("Select") || category.Equals("Select"))
+        {
+            return false;
+        }
+        else if(title.Length > 0 && client.Length > 0 && company.Length > 0 && description.Length > 0 )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
