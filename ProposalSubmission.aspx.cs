@@ -24,19 +24,15 @@ public partial class ProposalSubmission : System.Web.UI.Page
 
     protected void ProposalSubmission_Click(object sender, EventArgs e)
     {
-        string projectTitle = titleText.Text;
-        projectTitle = replaceSingleQuote(projectTitle);
-
-        string projectDescription = proposalDescriptionText.Text;
-        projectDescription = replaceSingleQuote(projectDescription);
+        string projectTitle = replaceSingleQuote(titleText.Text);
+        string projectDescription = replaceSingleQuote(proposalDescriptionText.Text);
 
         string projectNeed = needDropDown.SelectedItem.Text;
         string projectClientType = clientTypeDropDown.SelectedItem.Text;
         string projectCategory = orgCategoryDropDown.SelectedItem.Text;
 
-        //This is a test to see if this is working and I am typing in the middle of the text box so this is something that i will need to checkout later and i also need to check for max number of characters.
-
-        if (allFieldsFilledIn(projectTitle, projectDescription, projectNeed, projectClientType, projectCategory))
+        if (allFieldsFilledIn(projectTitle, projectDescription, projectNeed, projectClientType, projectCategory) 
+            && characterLimitsMet(projectTitle, projectDescription))
         {
             proposalSubmissionDataSource.InsertParameters["Title"].DefaultValue = projectTitle;
             proposalSubmissionDataSource.InsertParameters["Description"].DefaultValue = projectDescription;
@@ -48,15 +44,12 @@ public partial class ProposalSubmission : System.Web.UI.Page
             {
                 proposalSubmissionDataSource.Insert();
                 statusLabel.Text = "Proposal was added successfully";
+                resetProposalFields();
             }
             catch (Exception ex)
             {
                 statusLabel.Text = ex.Message;
             }
-        }
-        else
-        {
-            statusLabel.Text = "Please enter information for all fields";
         }
     }
 
@@ -67,17 +60,41 @@ public partial class ProposalSubmission : System.Web.UI.Page
 
     private bool allFieldsFilledIn(string title, string description, string need, string clientType, string category)
     {
-        if (clientType.Equals("Select") || category.Equals("Select") || need.Equals("Select"))
-        {
-            return false;
-        }
-        else if(title.Length > 0 && description.Length > 0 )
+        if (!clientType.Equals("Select") && !category.Equals("Select") && !need.Equals("Select")
+            && title.Length > 0 && description.Length > 0)
         {
             return true;
         }
         else
         {
+            statusLabel.Text = "Please fill in information for all fields";
             return false;
         }
+    }
+
+    private bool characterLimitsMet(string title, string description)
+    {
+        if (title.Length <= 50 && description.Length <= 500) return true;
+        
+        if(title.Length > 50)
+        {
+            statusLabel.Text += "Proposal Title Max 50 Characters";
+        }
+
+        if(description.Length > 500)
+        {
+            statusLabel.Text += "                        Proposal Description Max 500 Characters";
+        }
+
+        return false;
+    }
+
+    private void resetProposalFields()
+    {
+        titleText.Text = "";
+        proposalDescriptionText.Text = "";
+        needDropDown.SelectedIndex = -1;
+        clientTypeDropDown.SelectedIndex = -1;
+        orgCategoryDropDown.SelectedIndex = -1;
     }
 }

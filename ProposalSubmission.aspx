@@ -15,7 +15,7 @@
          <td>
              <asp:Label ID="titleLabel" runat="server" Text="Enter Title for Your Proposal"></asp:Label>
              <br />
-             <asp:TextBox ID="titleText" runat="server" Width="240px" Height="22px"></asp:TextBox>
+             <asp:TextBox ID="titleText" runat="server" Columns="50"></asp:TextBox>
 
          </td>
      </tr>
@@ -27,7 +27,7 @@
                 DataTextField="TypeOfNeed"
                 DataValueField="TypeOfNeed"></asp:DropDownList>
             <asp:SqlDataSource ID="needDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-                SelectCommand="SELECT [TypeOfNeed] FROM [Need]">
+                SelectCommand="SELECT [TypeOfNeed] FROM [Need] ORDER BY [TypeOfNeed]">
             </asp:SqlDataSource>
         </td>
       </tr>
@@ -41,7 +41,7 @@
 
             <asp:SqlDataSource ID="cleintTypeDataSource" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-                SelectCommand="SELECT [ClientType] FROM [ClientType]">
+                SelectCommand="SELECT [ClientType] FROM [ClientType] ORDER BY [ClientType]">
             </asp:SqlDataSource>
         </td>
       </tr>
@@ -55,7 +55,7 @@
 
             <asp:SqlDataSource ID="orgCategoryDataSource" runat="server"
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-                SelectCommand="SELECT [OrganizationCategory] FROM [OrgCategory]">
+                SelectCommand="SELECT [OrganizationCategory] FROM [OrgCategory] ORDER BY [OrganizationCategory]">
             </asp:SqlDataSource>
         </td>
       </tr>
@@ -63,7 +63,7 @@
           <td>
             <asp:Label ID="proposalLabel" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
             <br />
-            <asp:TextBox ID="proposalDescriptionText" runat="server" Height="161px" Width="392px" ></asp:TextBox>
+            <asp:TextBox ID="proposalDescriptionText" runat="server" TextMode="MultiLine" Rows="10" Columns="50"></asp:TextBox>
        </td>
      </tr>
     </table>
