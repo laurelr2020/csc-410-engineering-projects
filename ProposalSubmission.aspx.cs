@@ -46,6 +46,7 @@ public partial class ProposalSubmission : System.Web.UI.Page
 
             try
             {
+                proposalSubmissionDataSource.Insert();
                 statusLabel.Text = "Proposal was added successfully";
             }
             catch (Exception ex)
