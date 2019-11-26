@@ -27,11 +27,11 @@
             <br />
             <table style="width:100%;">
                 <tr>
-                    <td><asp:TextBox ID="txtSearch" runat="server" AutoPostBack="true"></asp:TextBox></td>
-                    <td><asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="True" DataTextField="Stat" DataValueField="Stat" DataSourceID="sdsStatus"></asp:DropDownList></td>
-                    <td><asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="True" DataTextField="OrganizationCategory" DataValueField="OrganizationCategory" DataSourceID="sdsCategory"></asp:DropDownList></td>
-                    <td><asp:DropDownList ID="ddlTypeOfNeed" runat="server" AutoPostBack="True" DataTextField="TypeOfNeed" DataValueField="TypeOfNeed" DataSourceID="sdsTypeOfNeed"></asp:DropDownList></td>
-                    <td><asp:DropDownList ID="ddlClientType" runat="server" AutoPostBack="True" DataTextField="ClientType" DataValueField="ClientType" DataSourceID="sdsClientType"></asp:DropDownList></td>
+                   <%-- <td><asp:TextBox ID="txtSearch" runat="server" AutoPostBack="true"></asp:TextBox></td>--%>
+                    <td><asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="True" DataTextField="Stat" DataValueField="Stat"></asp:DropDownList></td>
+                    <td><asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="True" DataTextField="OrganizationCategory" DataValueField="OrganizationCategory" ></asp:DropDownList></td>
+                    <td><asp:DropDownList ID="ddlTypeOfNeed" runat="server" AutoPostBack="True" DataTextField="TypeOfNeed" DataValueField="TypeOfNeed" ></asp:DropDownList></td>
+                    <td><asp:DropDownList ID="ddlClientType" runat="server" AutoPostBack="True" DataTextField="ClientType" DataValueField="ClientType"></asp:DropDownList></td>
                 </tr>
             </table>
             <asp:SqlDataSource ID="sdsStatus" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" SelectCommand="SELECT [Stat] FROM [StatusCode]"></asp:SqlDataSource>
@@ -53,7 +53,13 @@
             </asp:GridView>
             <asp:SqlDataSource ID="sdsProposals" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-                SelectCommand="SELECT [TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], ProjectStatus.Stat FROM [Projects],[ProjectStatus] WHERE (( Project.ProjectID=ProjectStatus.Stat) AND ([OrganizationCategory] LIKE @OrganizationCategory + '%') AND ( [TypeOfNeed] LIKE @TypeOfNeed + '%')AND ( [ClientType] LIKE @ClientType + '%')) ORDER BY [Title]">
+                SelectCommand="SELECT [TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], SelectStatus.Stat,SelectStatus.ProjectID, Projects.ProjectID 
+                                FROM [Projects],(SELECT TOP 100000000 Stat, ProjectID
+                                                    FROM ProjectStatus
+				                                    WHERE Stat LIKE @Status + '%'
+				                                    Order BY DateUpdated DESC) as SelectStatus
+                                WHERE ((Projects.ProjectID = SelectStatus.ProjectID) AND ([OrganizationCategory] LIKE @Category + '%') AND ( [TypeOfNeed] LIKE @TypeOfNeed + '%') AND ( [ClientType] LIKE @ClientType + '%')) 
+                                ORDER BY [Title]">
                 <%--SelectCommand="SELECT * FROM [City] WHERE (([Name] LIKE @Name + '%') AND ([Name] LIKE @Name2 + '%') AND ([State] LIKE @State + '%') AND ([PopulationDensity] > @PopulationDensity)) ORDER BY [Name]">--%>
                 <SelectParameters>
                     <asp:ControlParameter ControlID="txtSearch" DefaultValue="%" Name="Search" PropertyName="Text" Type="String" />

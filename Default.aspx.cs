@@ -19,7 +19,7 @@ public partial class _Default : System.Web.UI.Page
             ddlStatus.DataBind();
 
             // Insert a ListItem at the top, above the actual categories
-            ddlStatus.Items.Insert(0, new ListItem("Select", "%"));
+            ddlStatus.Items.Insert(0, new ListItem("Select a Status", "%"));
 
 
             // Get state categories and load then into the DropDownList
@@ -27,21 +27,21 @@ public partial class _Default : System.Web.UI.Page
             ddlCategory.DataBind();
 
             // Insert a ListItem at the top, above the actual categories
-            ddlCategory.Items.Insert(0, new ListItem("Select", "%"));
+            ddlCategory.Items.Insert(0, new ListItem("Select a Category", "%"));
 
             // Get state categories and load then into the DropDownList
             ddlTypeOfNeed.DataSource = sdsTypeOfNeed;
             ddlTypeOfNeed.DataBind();
 
             // Insert a ListItem at the top, above the actual categories
-            ddlTypeOfNeed.Items.Insert(0, new ListItem("Select", "%"));
+            ddlTypeOfNeed.Items.Insert(0, new ListItem("Select a Type of Need", "%"));
 
             // Get state categories and load then into the DropDownList
             ddlClientType.DataSource = sdsClientType;
             ddlClientType.DataBind();
 
             // Insert a ListItem at the top, above the actual categories
-            ddlClientType.Items.Insert(0, new ListItem("Select", "%"));
+            ddlClientType.Items.Insert(0, new ListItem("Select a Cleint Type", "%"));
         } // NOT PostBack
     }
 }
