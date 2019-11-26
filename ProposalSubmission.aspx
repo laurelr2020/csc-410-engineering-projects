@@ -69,7 +69,10 @@
     </table>
        <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" AutoPostBack="False" OnClick="ProposalSubmission_Click" />
         <br />
-        <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label>
+        <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="titleCharMaxLabel" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label><br />
+
 
         <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
             ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"

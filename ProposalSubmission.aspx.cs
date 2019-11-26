@@ -78,12 +78,12 @@ public partial class ProposalSubmission : System.Web.UI.Page
         
         if(title.Length > 50)
         {
-            statusLabel.Text += "Proposal Title Max 50 Characters";
+            titleCharMaxLabel.Text = "Proposal Title Max 50 Characters";
         }
 
         if(description.Length > 500)
         {
-            statusLabel.Text += "                        Proposal Description Max 500 Characters";
+            descriptionCharMaxLabel.Text = "Proposal Description Max 500 Characters";
         }
 
         return false;
