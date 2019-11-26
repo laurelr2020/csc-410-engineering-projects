@@ -74,8 +74,12 @@ public partial class ProposalSubmission : System.Web.UI.Page
 
     private bool characterLimitsMet(string title, string description)
     {
-        if (title.Length <= 50 && description.Length <= 500) return true;
-        
+        if (title.Length <= 50 && description.Length <= 500)
+        {
+            titleCharMaxLabel.Text = "";
+            descriptionCharMaxLabel.Text = "";
+            return true;
+        } 
         if(title.Length > 50)
         {
             titleCharMaxLabel.Text = "Proposal Title Max 50 Characters";
