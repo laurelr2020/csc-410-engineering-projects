@@ -74,11 +74,12 @@
         <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label><br />
 
 
-        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
+<%--        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
             ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
             SelectCommand="SELECT ProjectID FROM Projects" 
             InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
-                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)">
+                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)
+                            SELECT SCOPE_IDENTITY()">
             <InsertParameters>
                 <asp:Parameter Name="TypeOfNeed" Type="String" />
                 <asp:Parameter Name="Description" Type="String" />
@@ -86,9 +87,9 @@
                 <asp:Parameter Name="ClientType" Type="String" />
                 <asp:Parameter Name="OrganizationCategory" Type="String" />
             </InsertParameters>
-        </asp:SqlDataSource>
+        </asp:SqlDataSource>--%>
 
-        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+<%--        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
             SelectCommand="SELECT * FROM [ProjectStatus] ORDER BY [ProjectID], [DateUpdated]"
             InsertCommand="INSERT INTO [ProjectStatus] ([ProjectID], [Status], [DateUpdated])
                             VALUES(@ProjectID, @Status, @DateUpdated)">
@@ -97,7 +98,7 @@
                 <asp:Parameter Name="Status" Type="String" />
                 <asp:Parameter Name="DateUpdated" Type="DateTime" />
             </InsertParameters>
-        </asp:SqlDataSource>
+        </asp:SqlDataSource>--%>
 
     </form>
 </body>

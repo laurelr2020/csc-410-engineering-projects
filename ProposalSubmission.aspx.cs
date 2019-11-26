@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;           
+using System.Data.SqlClient; 
+using System.Configuration;  
 
 public partial class ProposalSubmission : System.Web.UI.Page
 {
@@ -34,15 +37,40 @@ public partial class ProposalSubmission : System.Web.UI.Page
         if (allFieldsFilledIn(projectTitle, projectDescription, projectNeed, projectClientType, projectCategory) 
             && characterLimitsMet(projectTitle, projectDescription))
         {
-            proposalSubmissionDataSource.InsertParameters["Title"].DefaultValue = projectTitle;
-            proposalSubmissionDataSource.InsertParameters["Description"].DefaultValue = projectDescription;
-            proposalSubmissionDataSource.InsertParameters["TypeOfNeed"].DefaultValue = projectNeed;
-            proposalSubmissionDataSource.InsertParameters["ClientType"].DefaultValue = projectClientType;
-            proposalSubmissionDataSource.InsertParameters["OrganizationCategory"].DefaultValue = projectCategory;
+            //proposalSubmissionDataSource.InsertParameters["Title"].DefaultValue = projectTitle;
+            //proposalSubmissionDataSource.InsertParameters["Description"].DefaultValue = projectDescription;
+            //proposalSubmissionDataSource.InsertParameters["TypeOfNeed"].DefaultValue = projectNeed;
+            //proposalSubmissionDataSource.InsertParameters["ClientType"].DefaultValue = projectClientType;
+            //proposalSubmissionDataSource.InsertParameters["OrganizationCategory"].DefaultValue = projectCategory;
 
             try
             {
-                proposalSubmissionDataSource.Insert();
+                 //numRowsAffected;
+                SqlConnection connection = new SqlConnection(getConnectionString());
+                connection.Open();
+                SqlCommand command = new SqlCommand();
+                command.Connection = connection;
+                command.CommandType = CommandType.Text;
+                command.CommandText = "INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory])" + 
+                                        "VALUES(@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory);";
+
+                int numRowsAffected = command.ExecuteNonQuery();
+                if(numRowsAffected == 1)
+                {
+                    command.CommandType = CommandType.Text;
+                    command.CommandText = "SELECT ProjectID FROM Projects WHERE Title = '" + projectTitle + "'";
+                    int projectId = command.ExecuteNonQuery();
+                    statusLabel.Text = projectTitle + " = " + projectId;
+                }
+                else
+                {
+                    statusLabel.Text = "Proposal NOT added";
+                }
+
+
+
+                connection.Close();
+                //int projectId = proposalSubmissionDataSource.Insert();
                 statusLabel.Text = "Proposal was added successfully";
                 resetProposalFields();
             }
@@ -91,6 +119,11 @@ public partial class ProposalSubmission : System.Web.UI.Page
         }
 
         return false;
+    }
+
+    private string getConnectionString()
+    {
+        return ConfigurationManager.ConnectionStrings["EngineeringProjectsConnectionString"].ConnectionString;
     }
 
     private void resetProposalFields()
