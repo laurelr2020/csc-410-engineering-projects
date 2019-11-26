@@ -40,14 +40,6 @@
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="phoneNumberLabel" runat="server" Text="Phone Number:"></asp:Label>
-                </td>
-                <td>
-                    <asp:TextBox ID="phoneNumberTextBox" runat="server" TextMode="Phone"></asp:TextBox>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     <asp:Label ID="jobTitleLabel" runat="server" Text="Job Title:"></asp:Label>
                 </td>
                 <td>

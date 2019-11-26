@@ -1,13 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
 
 public partial class CreateNewUser : System.Web.UI.Page
 {
@@ -21,20 +12,18 @@ public partial class CreateNewUser : System.Web.UI.Page
         string firstName = replaceSingleQuote(firstNameTextBox.Text);
         string lastName = replaceSingleQuote(lastNameTextBox.Text);
         string email = replaceSingleQuote(emailTextBox.Text);
-        string phoneNumber = replaceSingleQuote(phoneNumberTextBox.Text);
         string jobTitle = replaceSingleQuote(jobTitleTextBox.Text);
         string company = replaceSingleQuote(companyNameTextBox.Text);
         string username = replaceSingleQuote(usernameTextBox.Text);
         string password = replaceSingleQuote(passwordTextBox.Text);
 
-        if(allFieldsFilledIn(lastName, email, phoneNumber, company, username, password))
+        if(allFieldsFilledIn(lastName, email, company, username, password))
         {
             createNewUserDataSource.InsertParameters["Username"].DefaultValue = username;
             createNewUserDataSource.InsertParameters["Pass"].DefaultValue = password;
             createNewUserDataSource.InsertParameters["FirstName"].DefaultValue = firstName;
             createNewUserDataSource.InsertParameters["LastName"].DefaultValue = lastName;
             createNewUserDataSource.InsertParameters["Email"].DefaultValue = email;
-            createNewUserDataSource.InsertParameters["PhoneNumber"].DefaultValue = phoneNumber;
             createNewUserDataSource.InsertParameters["Company"].DefaultValue = company;
             createNewUserDataSource.InsertParameters["Title"].DefaultValue = jobTitle;
             createNewUserDataSource.InsertParameters["UserType"].DefaultValue = "0";
@@ -57,7 +46,6 @@ public partial class CreateNewUser : System.Web.UI.Page
         firstNameTextBox.Text = "";
         lastNameTextBox.Text = "";
         emailTextBox.Text = "";
-        phoneNumberTextBox.Text = "";
         jobTitleTextBox.Text = "";
         companyNameTextBox.Text = "";
         usernameTextBox.Text = "";
@@ -69,22 +57,11 @@ public partial class CreateNewUser : System.Web.UI.Page
         return dataField.Replace("'", "");
     } 
 
-    private bool allFieldsFilledIn(string name, string email, string phoneNumber, string company, string username, string password)
+    private bool allFieldsFilledIn(string name, string email, string company, string username, string password)
     {
-        if(email.Length > 0|| phoneNumber.Length > 0)
-        {
-            if(name.Length > 0 && company.Length > 0 && username.Length > 0 && password.Length > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
+        if(name.Length > 0 && company.Length > 0 && username.Length > 0 && password.Length > 0 && email.Length > 0) 
+            return true;
+        else 
             return false;
-        }
     }
 }
