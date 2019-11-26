@@ -74,12 +74,10 @@
         <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label><br />
 
 
-<%--        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
+        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
             ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
-            SelectCommand="SELECT ProjectID FROM Projects" 
             InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
-                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)
-                            SELECT SCOPE_IDENTITY()">
+                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)">
             <InsertParameters>
                 <asp:Parameter Name="TypeOfNeed" Type="String" />
                 <asp:Parameter Name="Description" Type="String" />
@@ -87,7 +85,7 @@
                 <asp:Parameter Name="ClientType" Type="String" />
                 <asp:Parameter Name="OrganizationCategory" Type="String" />
             </InsertParameters>
-        </asp:SqlDataSource>--%>
+        </asp:SqlDataSource>
 
 <%--        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
             SelectCommand="SELECT * FROM [ProjectStatus] ORDER BY [ProjectID], [DateUpdated]"
