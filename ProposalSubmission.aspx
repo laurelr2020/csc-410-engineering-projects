@@ -76,8 +76,9 @@
 
         <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
             ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
+            SelectCommand="SELECT ProjectID FROM Projects" 
             InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
-                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)" >
+                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)">
             <InsertParameters>
                 <asp:Parameter Name="TypeOfNeed" Type="String" />
                 <asp:Parameter Name="Description" Type="String" />
@@ -85,6 +86,10 @@
                 <asp:Parameter Name="ClientType" Type="String" />
                 <asp:Parameter Name="OrganizationCategory" Type="String" />
             </InsertParameters>
+        </asp:SqlDataSource>
+
+        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+            SelectCommand="SELECT * FROM [ProjectStatus] ORDER BY [ProjectID], [DateUpdated]">
         </asp:SqlDataSource>
 
     </form>
