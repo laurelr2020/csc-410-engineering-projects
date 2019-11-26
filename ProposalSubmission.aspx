@@ -13,51 +13,79 @@
   <table>
      <tr>
          <td>
-             <asp:Label ID="lblEnterTitle" runat="server" Text="Enter Title for Your Proposal"></asp:Label>
+             <asp:Label ID="titleLabel" runat="server" Text="Enter Title for Your Proposal"></asp:Label>
              <br />
-             <asp:TextBox ID="txtEnterTitle" runat="server" Width="240px" Height="22px"></asp:TextBox>
+             <asp:TextBox ID="titleText" runat="server" Columns="50"></asp:TextBox>
 
          </td>
      </tr>
-
       <tr>
         <td>
-             <asp:Label ID="Label1" runat="server" Text="Enter Client or Sponser"></asp:Label>
+            <asp:Label ID="needLabel" runat="server" Text="Choose a Type of Need"></asp:Label>
             <br />
-        <asp:TextBox ID="txtClient" runat="server" Width="240px" Height="22px"></asp:TextBox>
+            <asp:DropDownList ID="needDropDown" runat="server" AppendDataBoundItems="True"
+                DataTextField="TypeOfNeed"
+                DataValueField="TypeOfNeed"></asp:DropDownList>
+            <asp:SqlDataSource ID="needDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [TypeOfNeed] FROM [Need] ORDER BY [TypeOfNeed]">
+            </asp:SqlDataSource>
         </td>
-          <br />
+      </tr>
+      <tr>
         <td>
- <asp:Label ID="lblClientType" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
+            <asp:Label ID="clientTypeLabel" runat="server" Text="Choose a Client/ Sponser Type"></asp:Label>
             <br />
-        <asp:DropDownList ID="ddlClientType" runat="server" Height="16px" Width="186px"></asp:DropDownList>
+            <asp:DropDownList ID="clientTypeDropDown" runat="server" AppendDataBoundItems="True"
+                DataTextField="ClientType"
+                DataValueField="ClientType"></asp:DropDownList>
+
+            <asp:SqlDataSource ID="cleintTypeDataSource" runat="server" 
+                ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [ClientType] FROM [ClientType] ORDER BY [ClientType]">
+            </asp:SqlDataSource>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <asp:Label ID="orgCategoryLabel" runat="server" Text="Choose a Organizational Category"></asp:Label>
+            <br />
+            <asp:DropDownList ID="orgCategoryDropDown" runat="server" AppendDataBoundItems="True"
+                DataTextField="OrganizationCategory"
+                DataValueField="OrganizationCategory"></asp:DropDownList>
+
+            <asp:SqlDataSource ID="orgCategoryDataSource" runat="server"
+                ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [OrganizationCategory] FROM [OrgCategory] ORDER BY [OrganizationCategory]">
+            </asp:SqlDataSource>
         </td>
       </tr>
       <tr>
           <td>
-        <asp:Label ID="lblCompany" runat="server" Text="Enter Company"></asp:Label>
-        <br />
-        <asp:TextBox ID="txtCompany" runat="server" Height="16px" Width="240px"></asp:TextBox>
-          </td>
-          <td>
-              <asp:Label ID="Label2" runat="server" Text="Choose a Organizational Category"></asp:Label>
+            <asp:Label ID="proposalLabel" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
             <br />
-           <asp:DropDownList ID="DropDownList1" runat="server" Height="19px" Width="200px"></asp:DropDownList>
-       </td>
-
-      </tr>
-      <tr>
-          <td>
-        <asp:Label ID="lblProposal" runat="server" Text="Whats Your Idea/Proposal Description?"></asp:Label>
-              <br />
-        <asp:TextBox ID="txtDescription" runat="server" Height="161px" Width="392px" ></asp:TextBox>
-          <br />
-        <asp:Button ID="Submit" runat="server" Text="Submit Proposal" />
+            <asp:TextBox ID="proposalDescriptionText" runat="server" TextMode="MultiLine" Rows="10" Columns="50"></asp:TextBox>
        </td>
      </tr>
-        </table>
+    </table>
+       <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" AutoPostBack="False" OnClick="ProposalSubmission_Click" />
+        <br />
+        <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="titleCharMaxLabel" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label><br />
 
 
+        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
+            ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
+            InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
+                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)" >
+            <InsertParameters>
+                <asp:Parameter Name="TypeOfNeed" Type="String" />
+                <asp:Parameter Name="Description" Type="String" />
+                <asp:Parameter Name="Title" Type="String" />
+                <asp:Parameter Name="ClientType" Type="String" />
+                <asp:Parameter Name="OrganizationCategory" Type="String" />
+            </InsertParameters>
+        </asp:SqlDataSource>
 
     </form>
 </body>
