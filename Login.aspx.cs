@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.UI;
 using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 public partial class Login : System.Web.UI.Page
 {
@@ -22,7 +24,33 @@ public partial class Login : System.Web.UI.Page
                 dataRowView = dataView[0];
                 userName = (string)dataRowView["UserName"];
                 Session["Username"] = userName;
-                Response.Write("Login Successful");
+                string userType;
+                try
+                {
+                    SqlConnection conn = new SqlConnection(getConnectionString());
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("Select UserType FROM Users WHERE Username=@username", conn);
+            
+                    command.Parameters.AddWithValue("@username", Session["Username"]);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            userType = Convert.ToString(reader["UserType"]);
+                            Session["userType"] = userType;
+                        }
+                    }
+
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    Response.Write(ex.Message);
+                }
+
+
+
             }
             else
             {
@@ -38,5 +66,9 @@ public partial class Login : System.Web.UI.Page
     protected void createButton_Click(object sender, EventArgs e)
     {
         Response.Redirect("~/CreateNewUser.aspx");
+    }
+    private string getConnectionString()
+    {
+        return ConfigurationManager.ConnectionStrings["EngineeringProjectsConnectionString"].ConnectionString;
     }
 }
