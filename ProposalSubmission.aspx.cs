@@ -48,6 +48,7 @@ public partial class ProposalSubmission : System.Web.UI.Page
                 proposalSubmissionDataSource.Insert();
 
                 int? projectID = null;
+                string projectStatus = "Submitted";
                 try
                 {
                     SqlConnection conn = new SqlConnection(getConnectionString());
@@ -69,8 +70,8 @@ public partial class ProposalSubmission : System.Web.UI.Page
                     statusLabel.Text = ex.Message;
                 }
 
-                projectStatusDataSource.InsertParameters["ProjectID"].DefaultValue = projectID;
-                projectStatusDataSource.InsertParameters["Stat"].DefaultValue = "Submitted";
+                projectStatusDataSource.InsertParameters["ProjectID"].DefaultValue = Convert.ToString(projectID);
+                projectStatusDataSource.InsertParameters["Status"].DefaultValue = projectStatus;
                 projectStatusDataSource.InsertParameters["DateUpdated"].DefaultValue = Convert.ToString(DateTime.Now);
 
                 try

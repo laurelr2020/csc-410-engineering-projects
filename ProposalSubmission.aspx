@@ -88,7 +88,7 @@
         </asp:SqlDataSource>
 
         <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-            InsertCommand="INSERT INTO [ProjectStatus] ([ProjectID], [Status], [DateUpdated])
+            InsertCommand="INSERT INTO [ProjectStatus] ([ProjectID], [Stat], [DateUpdated])
                             VALUES(@ProjectID, @Status, @DateUpdated)">
              <InsertParameters>
                 <asp:Parameter Name="ProjectID" Type="Int32" />
