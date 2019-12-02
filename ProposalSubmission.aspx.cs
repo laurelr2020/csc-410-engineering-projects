@@ -47,6 +47,9 @@ public partial class ProposalSubmission : System.Web.UI.Page
             {
                 proposalSubmissionDataSource.Insert();
                 statusLabel.Text = "Proposal was added successfully";
+
+                int projectID;
+
                 resetProposalFields();
             }
             catch (Exception ex)
@@ -99,6 +102,27 @@ public partial class ProposalSubmission : System.Web.UI.Page
     private string getConnectionString()
     {
         return ConfigurationManager.ConnectionStrings["EngineeringProjectsConnectionString"].ConnectionString;
+    }
+
+    private int getProjectID(string projectTitle)
+    {
+        int projectID = null;
+        SqlConnection conn = new SqlConnection(getConnectionString());
+        conn.Open();
+
+        SqlCommand command = new SqlCommand("Select ProjectID FROM Projects WHERE Title=@title", conn);
+        command.Parameters.AddWithValue("@title", projectTitle);
+        using (SqlDataReader reader = command.ExecuteReader())
+        {
+            if (reader.Read())
+            {
+                projectID = Convert.ToInt32(reader["ProjectID"]);
+            }
+        }
+
+        conn.Close();
+
+        return projectID;
     }
 
     private void resetProposalFields()
