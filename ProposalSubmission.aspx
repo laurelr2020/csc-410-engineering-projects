@@ -87,8 +87,7 @@
             </InsertParameters>
         </asp:SqlDataSource>
 
-<%--        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-            SelectCommand="SELECT * FROM [ProjectStatus] ORDER BY [ProjectID], [DateUpdated]"
+        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
             InsertCommand="INSERT INTO [ProjectStatus] ([ProjectID], [Status], [DateUpdated])
                             VALUES(@ProjectID, @Status, @DateUpdated)">
              <InsertParameters>
@@ -96,7 +95,7 @@
                 <asp:Parameter Name="Status" Type="String" />
                 <asp:Parameter Name="DateUpdated" Type="DateTime" />
             </InsertParameters>
-        </asp:SqlDataSource>--%>
+        </asp:SqlDataSource>
 
     </form>
 </body>

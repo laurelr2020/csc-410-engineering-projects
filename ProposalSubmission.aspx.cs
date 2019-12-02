@@ -46,9 +46,41 @@ public partial class ProposalSubmission : System.Web.UI.Page
             try
             {
                 proposalSubmissionDataSource.Insert();
-                statusLabel.Text = "Proposal was added successfully";
 
-                int projectID;
+                int? projectID = null;
+                try
+                {
+                    SqlConnection conn = new SqlConnection(getConnectionString());
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("Select ProjectID FROM Projects WHERE Title=@title", conn);
+                    command.Parameters.AddWithValue("@title", projectTitle);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            projectID = Convert.ToInt32(reader["ProjectID"]);
+                        }
+                    }
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    statusLabel.Text = ex.Message;
+                }
+
+                projectStatusDataSource.InsertParameters["ProjectID"].DefaultValue = projectID;
+                projectStatusDataSource.InsertParameters["Stat"].DefaultValue = "Submitted";
+                projectStatusDataSource.InsertParameters["DateUpdated"].DefaultValue = Convert.ToString(DateTime.Now);
+
+                try
+                {
+                    projectStatusDataSource.Insert();
+                }
+                catch(Exception ex)
+                {
+                    statusLabel.Text = ex.Message;
+                }
 
                 resetProposalFields();
             }
@@ -102,27 +134,6 @@ public partial class ProposalSubmission : System.Web.UI.Page
     private string getConnectionString()
     {
         return ConfigurationManager.ConnectionStrings["EngineeringProjectsConnectionString"].ConnectionString;
-    }
-
-    private int getProjectID(string projectTitle)
-    {
-        int projectID = null;
-        SqlConnection conn = new SqlConnection(getConnectionString());
-        conn.Open();
-
-        SqlCommand command = new SqlCommand("Select ProjectID FROM Projects WHERE Title=@title", conn);
-        command.Parameters.AddWithValue("@title", projectTitle);
-        using (SqlDataReader reader = command.ExecuteReader())
-        {
-            if (reader.Read())
-            {
-                projectID = Convert.ToInt32(reader["ProjectID"]);
-            }
-        }
-
-        conn.Close();
-
-        return projectID;
     }
 
     private void resetProposalFields()
