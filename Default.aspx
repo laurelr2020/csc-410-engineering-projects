@@ -25,9 +25,8 @@
             <br />
             <h3>Engineering Projects</h3>
             <br />
-            <table style="width:100%;">
+            <table>
                 <tr>
-                   <%-- <td><asp:TextBox ID="txtSearch" runat="server" AutoPostBack="true"></asp:TextBox></td>--%>
                     <td><asp:DropDownList ID="ddlStatus" runat="server" AutoPostBack="True" DataTextField="Stat" DataValueField="Stat"></asp:DropDownList></td>
                     <td><asp:DropDownList ID="ddlCategory" runat="server" AutoPostBack="True" DataTextField="OrganizationCategory" DataValueField="OrganizationCategory" ></asp:DropDownList></td>
                     <td><asp:DropDownList ID="ddlTypeOfNeed" runat="server" AutoPostBack="True" DataTextField="TypeOfNeed" DataValueField="TypeOfNeed" ></asp:DropDownList></td>
@@ -39,10 +38,9 @@
             <asp:SqlDataSource ID="sdsTypeOfNeed" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" SelectCommand="SELECT [TypeOfNeed] FROM [Need]"></asp:SqlDataSource>
             <asp:SqlDataSource ID="sdsClientType" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" SelectCommand="SELECT [ClientType] FROM [ClientType]"></asp:SqlDataSource>
             <br />
-            <asp:Button ID="btnSearch" runat="server" Text="Search" />
             <br />
             <br />
-            <asp:GridView ID="gvProjects" runat="server" AutoGenerateColumns="False" DataSourceID="sdsProposals">
+            <asp:GridView ID="gvProjects" runat="server" AutoGenerateColumns="False" DataSourceID="sdsProposals" AllowPaging="True">
                 <Columns>
                     <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
@@ -53,16 +51,14 @@
             </asp:GridView>
             <asp:SqlDataSource ID="sdsProposals" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-                SelectCommand="SELECT [TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], SelectStatus.Stat,SelectStatus.ProjectID, Projects.ProjectID 
-                                FROM [Projects],(SELECT TOP 100000000 Stat, ProjectID
+                SelectCommand="SELECT [TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], SelectStatus.Stat, SelectStatus.ProjectID, Projects.ProjectID 
+                                FROM [Projects], (SELECT TOP 100000000 Stat, ProjectID
                                                     FROM ProjectStatus
 				                                    WHERE Stat LIKE @Status + '%'
 				                                    Order BY DateUpdated DESC) as SelectStatus
                                 WHERE ((Projects.ProjectID = SelectStatus.ProjectID) AND ([OrganizationCategory] LIKE @Category + '%') AND ( [TypeOfNeed] LIKE @TypeOfNeed + '%') AND ( [ClientType] LIKE @ClientType + '%')) 
                                 ORDER BY [Title]">
-                <%--SelectCommand="SELECT * FROM [City] WHERE (([Name] LIKE @Name + '%') AND ([Name] LIKE @Name2 + '%') AND ([State] LIKE @State + '%') AND ([PopulationDensity] > @PopulationDensity)) ORDER BY [Name]">--%>
                 <SelectParameters>
-                    <asp:ControlParameter ControlID="txtSearch" DefaultValue="%" Name="Search" PropertyName="Text" Type="String" />
                     <asp:ControlParameter ControlID="ddlStatus" DefaultValue="%" Name="Status" PropertyName="SelectedValue" Type="String" />
                     <asp:ControlParameter ControlID="ddlCategory" DefaultValue="%" Name="Category" PropertyName="SelectedValue" Type="String" />
                     <asp:ControlParameter ControlID="ddlTypeOfNeed" DefaultValue="%" Name="TypeOfNeed" PropertyName="SelectedValue" Type="String" />
