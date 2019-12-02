@@ -75,7 +75,7 @@ public partial class _Default : System.Web.UI.Page
         }
         else if (menuTopNav.SelectedItem == menuTopNav.Items[2])
         {
-            Response.Redirect("~/Login.aspx");
+            Response.Redirect("~/ViewUser.aspx");
         }
         
     }
