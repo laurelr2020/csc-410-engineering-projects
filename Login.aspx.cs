@@ -43,6 +43,7 @@ public partial class Login : System.Web.UI.Page
                     }
 
                     conn.Close();
+                    Response.Redirect("~/Default.aspx");
                 }
                 catch (Exception ex)
                 {

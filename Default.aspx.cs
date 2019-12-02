@@ -77,6 +77,11 @@ public partial class _Default : System.Web.UI.Page
         {
             Response.Redirect("~/ViewUser.aspx");
         }
+        else if(menuTopNav.SelectedItem==menuTopNav.Items[3])
+        {
+            Session.Abandon();
+            Response.Redirect("~/Default.aspx");
+        }
         
     }
 
@@ -101,7 +106,8 @@ public partial class _Default : System.Web.UI.Page
         }
         else if (menuNav2.SelectedItem == menuNav2.Items[1])
         {
-            Response.Redirect("~/Update.aspx");
+            Session.Abandon();
+            Response.Redirect("~/Default.aspx");
         }
     }
 }

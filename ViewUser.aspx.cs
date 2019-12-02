@@ -28,7 +28,6 @@ public partial class ViewUser : System.Web.UI.Page
         {
             lblStatus.Text = "Update failed. Someone else changed or deleted this user.";
         }
-
     }
 
     protected void gvViewUsers_RowEditing(object sender, GridViewEditEventArgs e)
