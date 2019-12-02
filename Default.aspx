@@ -49,7 +49,6 @@
                     <asp:BoundField DataField="TypeOfNeed" HeaderText="TypeOfNeed" SortExpression="TypeOfNeed" />
                     <asp:BoundField DataField="ClientType" HeaderText="ClientType" SortExpression="ClientType" />
                     <asp:BoundField DataField="OrganizationCategory" HeaderText="OrganizationCategory" SortExpression="OrganizationCategory" />
-                    <asp:CommandField ShowEditButton="True" />
                 </Columns>
             </asp:GridView>
             <asp:SqlDataSource ID="sdsProposals" runat="server" 
