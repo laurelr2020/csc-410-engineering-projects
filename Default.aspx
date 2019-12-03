@@ -53,10 +53,10 @@
             <asp:SqlDataSource ID="sdsProposals" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
                 SelectCommand="SELECT [TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], SelectStatus.Stat, SelectStatus.ProjectID, Projects.ProjectID 
-                                FROM [Projects], (SELECT TOP 100000000 Stat, ProjectID
+                                FROM [Projects], (SELECT TOP 1 Stat, ProjectID
                                                     FROM ProjectStatus
 				                                    WHERE Stat LIKE @Status + '%'
-				                                    Order BY DateUpdated DESC) as SelectStatus
+				                                    ORDER BY DateUpdated DESC) as SelectStatus
                                 WHERE ((Projects.ProjectID = SelectStatus.ProjectID) AND ([OrganizationCategory] LIKE @Category + '%') AND ( [TypeOfNeed] LIKE @TypeOfNeed + '%') AND ( [ClientType] LIKE @ClientType + '%')) 
                                 ORDER BY [Title]">
                 <SelectParameters>
