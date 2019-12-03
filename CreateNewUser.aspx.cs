@@ -50,6 +50,8 @@ public partial class CreateNewUser : System.Web.UI.Page
         companyNameTextBox.Text = "";
         usernameTextBox.Text = "";
         passwordTextBox.Text = "";
+
+        Response.Redirect("~/Default.aspx");
     }
 
     private string replaceSingleQuote(string dataField)

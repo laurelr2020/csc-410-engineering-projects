@@ -40,7 +40,6 @@ public partial class _Default : System.Web.UI.Page
             menuTopNav.Visible =false;
             menuNav2.Visible = false;
 
-
         }
         else
         {
@@ -97,7 +96,7 @@ public partial class _Default : System.Web.UI.Page
         }
         else if (menuTopNav.SelectedItem == menuTopNav.Items[1])
         {
-            Response.Redirect("~/Update.aspx");
+            Response.Redirect("~/ProposalUpdate.aspx");
         }
         else if (menuTopNav.SelectedItem == menuTopNav.Items[2])
         {

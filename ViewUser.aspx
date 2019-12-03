@@ -8,6 +8,20 @@
 </head>
 <body>
     <form id="form1" runat="server">
+     <asp:Menu ID="menuTopNav" runat="server" Orientation="Horizontal" OnMenuItemClick="menuTopNav_MenuItemClick">
+              <staticmenuitemstyle
+                  HorizontalPadding="15"
+                  VerticalPadding="2"
+                  ForeColor="Black"
+              />
+                <Items>
+                    <asp:MenuItem Text="Home"></asp:MenuItem>
+                    <asp:MenuItem Text="Add Proposal"></asp:MenuItem>
+                    <asp:MenuItem Text="Update Proposal"></asp:MenuItem>
+                    <asp:MenuItem Text="Log Out"></asp:MenuItem>
+                </Items>
+    </asp:Menu>
+
     <h2>View Users</h2>
         <div>
         </div>

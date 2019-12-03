@@ -34,4 +34,29 @@ public partial class ViewUser : System.Web.UI.Page
     {
         gvViewUsers.SelectedIndex = -1;
     }
+
+    protected void menuTopNav_MenuItemClick(object sender, MenuEventArgs e)
+    {
+
+        if (menuTopNav.SelectedItem == menuTopNav.Items[0])
+        {
+            Response.Redirect("~/Default.aspx");
+        }
+        else if (menuTopNav.SelectedItem == menuTopNav.Items[1])
+        {
+            Response.Redirect("~/ProposalSubmission.aspx");
+        }
+        else if (menuTopNav.SelectedItem == menuTopNav.Items[2])
+        {
+            Response.Redirect("~/ProposalUpdate.aspx");
+        }
+        else if (menuTopNav.SelectedItem == menuTopNav.Items[3])
+        {
+            Session.Abandon();
+            Response.Redirect("~/Default.aspx");
+        }
+
+    }
+
+
 }

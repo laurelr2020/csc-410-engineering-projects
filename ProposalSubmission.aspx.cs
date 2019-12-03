@@ -83,7 +83,9 @@ public partial class ProposalSubmission : System.Web.UI.Page
                     statusLabel.Text = ex.Message;
                 }
 
+                statusLabel.Text = "Proposal was successfully added";
                 resetProposalFields();
+                Response.Redirect("~/Default.aspx");
             }
             catch (Exception ex)
             {
