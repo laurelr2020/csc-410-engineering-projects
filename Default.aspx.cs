@@ -9,6 +9,31 @@ public partial class _Default : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
+        if (!IsPostBack)
+        {
+            ddlStatus.DataSource = sdsStatus;
+            ddlStatus.DataBind();
+
+            ddlStatus.Items.Insert(0, new ListItem("Select a Status", "%"));
+
+
+            ddlCategory.DataSource = sdsCategory;
+            ddlCategory.DataBind();
+
+            ddlCategory.Items.Insert(0, new ListItem("Select a Category", "%"));
+
+            ddlTypeOfNeed.DataSource = sdsTypeOfNeed;
+            ddlTypeOfNeed.DataBind();
+
+            ddlTypeOfNeed.Items.Insert(0, new ListItem("Select a Type of Need", "%"));
+
+            ddlClientType.DataSource = sdsClientType;
+            ddlClientType.DataBind();
+
+            ddlClientType.Items.Insert(0, new ListItem("Select a Client Type", "%"));
+        }
+
         if (Session["UserType"] == null)
         {
             menuNav3.Visible = true;
@@ -16,7 +41,7 @@ public partial class _Default : System.Web.UI.Page
             menuNav2.Visible = false;
 
 
-        } 
+        }
         else
         {
 
@@ -34,7 +59,8 @@ public partial class _Default : System.Web.UI.Page
                 menuNav3.Visible = false;
 
             } // not admin
-        } 
+        }
+
     }
 
     protected void gvProjects_RowEditing(object sender, GridViewEditEventArgs e)
@@ -82,12 +108,12 @@ public partial class _Default : System.Web.UI.Page
             Session.Abandon();
             Response.Redirect("~/Default.aspx");
         }
-        
+
     }
 
     protected void gvProjects_SelectedIndexChanged(object sender, EventArgs e)
     {
-       
+
     }
 
     protected void menuNav3_MenuItemClick(object sender, MenuEventArgs e)
