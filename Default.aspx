@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Menu ID="menuTopNav" runat="server" Orientation="Horizontal">
+            <asp:Menu ID="menuTopNav" runat="server" Orientation="Horizontal" OnMenuItemClick="menuTopNav_MenuItemClick">
               <staticmenuitemstyle 
                   HorizontalPadding="15"
                   VerticalPadding="2" 
@@ -19,6 +19,26 @@
                     <asp:MenuItem Text="Add Proposal"></asp:MenuItem>
                     <asp:MenuItem Text="Update Proposal"></asp:MenuItem>
                     <asp:MenuItem Text="View Users"></asp:MenuItem>
+                </Items>
+            </asp:Menu>
+            <asp:Menu ID="menuNav2" runat="server" Orientation="Horizontal" OnMenuItemClick="menuNav2_MenuItemClick">
+                <staticmenuitemstyle 
+                  HorizontalPadding="15"
+                  VerticalPadding="2" 
+                  ForeColor="Black"
+              />
+                <Items>
+                    <asp:MenuItem Text="Add Proposal"></asp:MenuItem>
+                    <asp:MenuItem Text="Update Proposal"></asp:MenuItem>
+                </Items>
+            </asp:Menu>
+            <asp:Menu ID="menuNav3" runat="server" Orientation="Horizontal" OnMenuItemClick="menuNav3_MenuItemClick">
+                <staticmenuitemstyle 
+                  HorizontalPadding="15"
+                  VerticalPadding="2" 
+                  ForeColor="Black"
+              />
+                <Items>
                     <asp:MenuItem Text="Login"></asp:MenuItem>
                 </Items>
             </asp:Menu>
@@ -42,7 +62,7 @@
             <asp:Button ID="btnSearch" runat="server" Text="Search" />
             <br />
             <br />
-            <asp:GridView ID="gvProjects" runat="server" AutoGenerateColumns="False" DataSourceID="sdsProposals" OnRowEditing="gvProjects_RowEditing" OnRowUpdated="gvProjects_RowUpdated">
+            <asp:GridView ID="gvProjects" runat="server" AutoGenerateColumns="False" DataSourceID="sdsProposals" OnRowEditing="gvProjects_RowEditing" OnRowUpdated="gvProjects_RowUpdated" OnSelectedIndexChanged="gvProjects_SelectedIndexChanged">
                 <Columns>
                     <asp:BoundField DataField="Title" HeaderText="Title" SortExpression="Title" />
                     <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="Description" />
