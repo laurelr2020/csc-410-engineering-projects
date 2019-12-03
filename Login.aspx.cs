@@ -22,7 +22,7 @@ public partial class Login : System.Web.UI.Page
                 dataRowView = dataView[0];
                 userName = (string)dataRowView["UserName"];
                 Session["Username"] = userName;
-                Response.Write("Login Successful");
+                Response.Redirect("~/Default.html"); //TO DO: THIS NEEDS CHANGED
             }
             else
             {
