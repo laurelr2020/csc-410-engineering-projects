@@ -73,13 +73,16 @@
             </asp:GridView>
             <asp:SqlDataSource ID="sdsProposals" runat="server"
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
-                SelectCommand=" SELECT Projects.ProjectID, Title, Stat, Description, TypeOfNeed, ClientType, OrganizationCategory
-                                FROM Projects
-                                JOIN ProjectStatus AS proj
+                SelectCommand="SELECT Projects.ProjectID, [TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory], Stat
+                               FROM [Projects]
+                               JOIN ProjectStatus AS proj
                                     ON proj.ProjectID = Projects.ProjectID
-                                    WHERE Stat IN (SELECT TOP 1 Stat
+                                    WHERE proj.Stat IN (SELECT TOP 1 Stat
                                                     FROM ProjectStatus
-                                                    WHERE ProjectStatus.ProjectID = Projects.ProjectID)">
+                                                    WHERE ProjectStatus.ProjectID = Projects.ProjectID 
+                                                        AND proj.Stat LIKE @Status + '%')
+		                                AND ((Projects.ProjectID = proj.ProjectID) AND ([OrganizationCategory] LIKE @Category + '%') AND ( [TypeOfNeed] LIKE @TypeOfNeed + '%') AND ( [ClientType] LIKE @ClientType + '%')) 
+                               ORDER BY [Title]">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ddlStatus" DefaultValue="%" Name="Status" PropertyName="SelectedValue" Type="String" />
                     <asp:ControlParameter ControlID="ddlCategory" DefaultValue="%" Name="Category" PropertyName="SelectedValue" Type="String" />
