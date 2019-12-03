@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:Menu ID="menuTopNav" runat="server" Orientation="Horizontal">
+            <asp:Menu ID="menuTopNav" runat="server" Orientation="Horizontal" OnMenuItemClick="menuTopNav_MenuItemClick">
               <staticmenuitemstyle
                   HorizontalPadding="15"
                   VerticalPadding="2"
@@ -19,6 +19,27 @@
                     <asp:MenuItem Text="Add Proposal"></asp:MenuItem>
                     <asp:MenuItem Text="Update Proposal"></asp:MenuItem>
                     <asp:MenuItem Text="View Users"></asp:MenuItem>
+                    <asp:MenuItem Text="Log Out"></asp:MenuItem>
+                </Items>
+            </asp:Menu>
+            <asp:Menu ID="menuNav2" runat="server" Orientation="Horizontal" OnMenuItemClick="menuNav2_MenuItemClick">
+                <staticmenuitemstyle
+                  HorizontalPadding="15"
+                  VerticalPadding="2"
+                  ForeColor="Black"
+              />
+                <Items>
+                    <asp:MenuItem Text="Add Proposal"></asp:MenuItem>
+                    <asp:MenuItem Text="Log Out"></asp:MenuItem>
+                </Items>
+            </asp:Menu>
+            <asp:Menu ID="menuNav3" runat="server" Orientation="Horizontal" OnMenuItemClick="menuNav3_MenuItemClick">
+                <staticmenuitemstyle
+                  HorizontalPadding="15"
+                  VerticalPadding="2"
+                  ForeColor="Black"
+              />
+                <Items>
                     <asp:MenuItem Text="Login"></asp:MenuItem>
                 </Items>
             </asp:Menu>
