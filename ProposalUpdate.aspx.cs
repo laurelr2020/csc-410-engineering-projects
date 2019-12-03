@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -11,29 +12,33 @@ public partial class ProposalUpdate : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        proposalDropDown.DataSource = proposalDataSource;
-        proposalDropDown.DataBind();
-        proposalDropDown.Items.Insert(0, new ListItem("Select", "%"));
+        if (!IsPostBack)
+        {
+            proposalDropDown.DataSource = proposalDataSource;
+            proposalDropDown.DataBind();
+            proposalDropDown.Items.Insert(0, new ListItem("Select", "%"));
 
-        needDropDown.DataSource = needDataSource;
-        needDropDown.DataBind();
-        needDropDown.Items.Insert(0, new ListItem("Select", "%"));
+            needDropDown.DataSource = needDataSource;
+            needDropDown.DataBind();
+            needDropDown.Items.Insert(0, new ListItem("Select", "%"));
 
-        clientTypeDropDown.DataSource = cleintTypeDataSource;
-        clientTypeDropDown.DataBind();
-        clientTypeDropDown.Items.Insert(0, new ListItem("Select", "%"));
+            clientTypeDropDown.DataSource = cleintTypeDataSource;
+            clientTypeDropDown.DataBind();
+            clientTypeDropDown.Items.Insert(0, new ListItem("Select", "%"));
 
-        orgCategoryDropDown.DataSource = orgCategoryDataSource;
-        orgCategoryDropDown.DataBind();
-        orgCategoryDropDown.Items.Insert(0, new ListItem("Select", "%"));
+            orgCategoryDropDown.DataSource = orgCategoryDataSource;
+            orgCategoryDropDown.DataBind();
+            orgCategoryDropDown.Items.Insert(0, new ListItem("Select", "%"));
+
+        }
     }
 
     //onselectedindexchange()
     protected void ProposalSubmission_Click(object sender, EventArgs e)
     {
+        string projectTitle = proposalDropDown.SelectedItem.Text;
         string projectDescription = replaceSingleQuote(proposalDescriptionText.Text);
 
-        string projectTitle = proposalDropDown.SelectedItem.Text;
         string projectNeed = needDropDown.SelectedItem.Text;
         string projectClientType = clientTypeDropDown.SelectedItem.Text;
         string projectCategory = orgCategoryDropDown.SelectedItem.Text;
@@ -41,16 +46,26 @@ public partial class ProposalUpdate : System.Web.UI.Page
         if (allFieldsFilledIn(projectDescription, projectNeed, projectClientType, projectCategory)
             && characterLimitsMet(projectDescription))
         {
-            proposalSubmissionDataSource.InsertParameters["Description"].DefaultValue = projectDescription;
-            proposalSubmissionDataSource.InsertParameters["TypeOfNeed"].DefaultValue = projectNeed;
-            proposalSubmissionDataSource.InsertParameters["ClientType"].DefaultValue = projectClientType;
-            proposalSubmissionDataSource.InsertParameters["OrganizationCategory"].DefaultValue = projectCategory;
+            SqlConnection conn = new SqlConnection(getConnectionString());
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = "UPDATE Projects SET Description = '" + projectDescription +
+                              "', TypeOfNeed = '" + projectNeed +
+                              "', ClientType = '" + projectClientType +
+                              "', OrganizationCategory = '" + projectCategory + 
+                              "' WHERE Title = '" +  projectTitle + "'";
+            conn.Open();
 
             try
             {
-                proposalSubmissionDataSource.Insert();
-                statusLabel.Text = "Proposal was added successfully";
-                resetProposalFields();
+                int numRowsAffected = cmd.ExecuteNonQuery();
+                if (numRowsAffected == 1)
+                {
+                    statusLabel.Text = "Proposal was updated successfully";
+                    resetProposalFields();
+                    Response.Redirect("~/Default.aspx");
+                }
             }
             catch (Exception ex)
             {
@@ -59,35 +74,6 @@ public partial class ProposalUpdate : System.Web.UI.Page
         }
     }
 
-    protected void updateToTitle(object sender, EventArgs e)
-    {
-        string projectDescription = replaceSingleQuote(proposalDescriptionText.Text);
-
-        string projectTitle = proposalDropDown.SelectedItem.Text;
-        string projectNeed = needDropDown.SelectedItem.Text;
-        string projectClientType = clientTypeDropDown.SelectedItem.Text;
-        string projectCategory = orgCategoryDropDown.SelectedItem.Text;
-
-        if (allFieldsFilledIn(projectDescription, projectNeed, projectClientType, projectCategory)
-            && characterLimitsMet(projectDescription))
-        {
-            proposalSubmissionDataSource.InsertParameters["Description"].DefaultValue = projectDescription;
-            proposalSubmissionDataSource.InsertParameters["TypeOfNeed"].DefaultValue = projectNeed;
-            proposalSubmissionDataSource.InsertParameters["ClientType"].DefaultValue = projectClientType;
-            proposalSubmissionDataSource.InsertParameters["OrganizationCategory"].DefaultValue = projectCategory;
-
-            try
-            {
-                proposalSubmissionDataSource.Insert();
-                statusLabel.Text = "Proposal was added successfully";
-                resetProposalFields();
-            }
-            catch (Exception ex)
-            {
-                statusLabel.Text = ex.Message;
-            }
-        }
-    }
 
     private string replaceSingleQuote(string dataField)
     {
@@ -128,13 +114,13 @@ public partial class ProposalUpdate : System.Web.UI.Page
     private void resetProposalFields()
     {
         proposalDescriptionText.Text = "";
+        proposalDropDown.SelectedIndex = -1;
         needDropDown.SelectedIndex = -1;
         clientTypeDropDown.SelectedIndex = -1;
         orgCategoryDropDown.SelectedIndex = -1;
     }
 
-
-    protected void updateFromTitle(object sender, EventArgs e) {
+    protected void UpdateFromTitle_OnSelectedIndexChange(object sender, EventArgs e) {
         string projectDescription;
         string projectNeed;
         string projectClientType;
@@ -146,7 +132,7 @@ public partial class ProposalUpdate : System.Web.UI.Page
             conn.Open();
 
             SqlCommand command = new SqlCommand("Select * FROM Projects WHERE Title=@title", conn);
-            command.Parameters.AddWithValue("@title", "Title");
+            command.Parameters.AddWithValue("@title", proposalDropDown.SelectedItem.Text);
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 if (reader.Read())
@@ -181,4 +167,48 @@ private string getConnectionString()
 {
     return ConfigurationManager.ConnectionStrings["EngineeringProjectsConnectionString"].ConnectionString;
 }
+
+    protected void btnSelectProposal_Click(object sender, EventArgs e)
+    {
+        string projectDescription;
+        string projectNeed;
+        string projectClientType;
+        string projectCategory;
+
+        try
+        {
+            SqlConnection conn = new SqlConnection(getConnectionString());
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("Select * FROM Projects WHERE Title=@title", conn);
+            command.Parameters.AddWithValue("@title", proposalDropDown.SelectedItem.Text);
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                if (reader.Read())
+                {
+                    projectDescription = Convert.ToString(reader["Description"]);
+                    projectNeed = Convert.ToString(reader["TypeOfNeed"]);
+                    projectClientType = Convert.ToString(reader["ClientType"]);
+                    projectCategory = Convert.ToString(reader["OrganizationCategory"]);
+
+                    proposalDescriptionText.Text = projectDescription.ToString();
+
+                    needDropDown.ClearSelection(); //making sure the previous selection has been cleared
+                    needDropDown.Items.FindByValue(projectNeed).Selected = true;
+
+                    clientTypeDropDown.ClearSelection(); //making sure the previous selection has been cleared
+                    clientTypeDropDown.Items.FindByValue(projectClientType).Selected = true;
+
+                    orgCategoryDropDown.ClearSelection(); //making sure the previous selection has been cleared
+                    orgCategoryDropDown.Items.FindByValue(projectCategory).Selected = true;
+                }
+            }
+
+            conn.Close();
+        }
+        catch (Exception ex)
+        {
+            Response.Write(ex.Message);
+        }
+    }
 }

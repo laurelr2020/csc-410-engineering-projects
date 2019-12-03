@@ -18,7 +18,11 @@
             <asp:DropDownList ID="proposalDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="Title"
                 DataValueField="Title"
-                OnSelectedIndexChanged="updateFromTitle"></asp:DropDownList>
+                AutoPostBack ="False">
+            </asp:DropDownList>
+
+            <asp:Button ID="btnSelectProposal" runat="server" Text="Select" OnClick="btnSelectProposal_Click" />
+
             <asp:SqlDataSource ID="proposalDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
                 SelectCommand="SELECT [Title] FROM [Projects]"></asp:SqlDataSource>
         </td>
@@ -29,7 +33,8 @@
             <br />
             <asp:DropDownList ID="needDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="TypeOfNeed"
-                DataValueField="TypeOfNeed"></asp:DropDownList>
+                DataValueField="TypeOfNeed"
+                AutoPostBack ="False"></asp:DropDownList>
             <asp:SqlDataSource ID="needDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
                 SelectCommand="SELECT [TypeOfNeed] FROM [Need] ORDER BY [TypeOfNeed]">
             </asp:SqlDataSource>
@@ -41,7 +46,8 @@
             <br />
             <asp:DropDownList ID="clientTypeDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="ClientType"
-                DataValueField="ClientType"></asp:DropDownList>
+                DataValueField="ClientType"
+                AutoPostBack ="False"></asp:DropDownList>
 
             <asp:SqlDataSource ID="cleintTypeDataSource" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
@@ -55,7 +61,8 @@
             <br />
             <asp:DropDownList ID="orgCategoryDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="OrganizationCategory"
-                DataValueField="OrganizationCategory"></asp:DropDownList>
+                DataValueField="OrganizationCategory"
+                AutoPostBack ="False"></asp:DropDownList>
 
             <asp:SqlDataSource ID="orgCategoryDataSource" runat="server"
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
@@ -75,21 +82,9 @@
         <br />
         <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label><br />
         <asp:Label ID="titleCharMaxLabel" runat="server" Text=""></asp:Label><br />
-        <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label>
 
-
-        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
-            InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
-                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)" >
-            <InsertParameters>
-                <asp:Parameter Name="TypeOfNeed" Type="String" />
-                <asp:Parameter Name="Description" Type="String" />
-                <asp:Parameter Name="Title" Type="String" />
-                <asp:Parameter Name="ClientType" Type="String" />
-                <asp:Parameter Name="OrganizationCategory" Type="String" />
-            </InsertParameters>
-        </asp:SqlDataSource>
+        <br />
 
     </form>
 </body>
