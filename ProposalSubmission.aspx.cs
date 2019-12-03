@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;           
+using System.Data.SqlClient; 
+using System.Configuration;  
 
 public partial class ProposalSubmission : System.Web.UI.Page
 {
@@ -43,7 +46,43 @@ public partial class ProposalSubmission : System.Web.UI.Page
             try
             {
                 proposalSubmissionDataSource.Insert();
-                statusLabel.Text = "Proposal was added successfully";
+
+                int? projectID = null;
+                string projectStatus = "Submitted";
+                try
+                {
+                    SqlConnection conn = new SqlConnection(getConnectionString());
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("Select ProjectID FROM Projects WHERE Title=@title", conn);
+                    command.Parameters.AddWithValue("@title", projectTitle);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            projectID = Convert.ToInt32(reader["ProjectID"]);
+                        }
+                    }
+                    conn.Close();
+                }
+                catch (Exception ex)
+                {
+                    statusLabel.Text = ex.Message;
+                }
+
+                projectStatusDataSource.InsertParameters["ProjectID"].DefaultValue = Convert.ToString(projectID);
+                projectStatusDataSource.InsertParameters["Status"].DefaultValue = projectStatus;
+                projectStatusDataSource.InsertParameters["DateUpdated"].DefaultValue = Convert.ToString(DateTime.Now);
+
+                try
+                {
+                    projectStatusDataSource.Insert();
+                }
+                catch(Exception ex)
+                {
+                    statusLabel.Text = ex.Message;
+                }
+
                 resetProposalFields();
             }
             catch (Exception ex)
@@ -91,6 +130,11 @@ public partial class ProposalSubmission : System.Web.UI.Page
         }
 
         return false;
+    }
+
+    private string getConnectionString()
+    {
+        return ConfigurationManager.ConnectionStrings["EngineeringProjectsConnectionString"].ConnectionString;
     }
 
     private void resetProposalFields()

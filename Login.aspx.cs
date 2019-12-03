@@ -31,7 +31,7 @@ public partial class Login : System.Web.UI.Page
                     conn.Open();
 
                     SqlCommand command = new SqlCommand("Select UserType FROM Users WHERE Username=@username", conn);
-            
+
                     command.Parameters.AddWithValue("@username", Session["Username"]);
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
