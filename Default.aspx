@@ -10,9 +10,9 @@
     <form id="form1" runat="server">
         <div>
             <asp:Menu ID="menuTopNav" runat="server" Orientation="Horizontal">
-              <staticmenuitemstyle 
+              <staticmenuitemstyle
                   HorizontalPadding="15"
-                  VerticalPadding="2" 
+                  VerticalPadding="2"
                   ForeColor="Black"
               />
                 <Items>
@@ -50,14 +50,14 @@
                     <asp:BoundField DataField="OrganizationCategory" HeaderText="OrganizationCategory" SortExpression="OrganizationCategory" />
                 </Columns>
             </asp:GridView>
-            <asp:SqlDataSource ID="sdsProposals" runat="server" 
-                ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+            <asp:SqlDataSource ID="sdsProposals" runat="server"
+                ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
                 SelectCommand=" SELECT Projects.ProjectID, Title, Stat, Description, TypeOfNeed, ClientType, OrganizationCategory
                                 FROM Projects
-                                JOIN ProjectStatus AS proj 
+                                JOIN ProjectStatus AS proj
                                     ON proj.ProjectID = Projects.ProjectID
-                                    WHERE Stat IN (SELECT TOP 1 Stat 
-                                                    FROM ProjectStatus 
+                                    WHERE Stat IN (SELECT TOP 1 Stat
+                                                    FROM ProjectStatus
                                                     WHERE ProjectStatus.ProjectID = Projects.ProjectID)">
                 <SelectParameters>
                     <asp:ControlParameter ControlID="ddlStatus" DefaultValue="%" Name="Status" PropertyName="SelectedValue" Type="String" />
@@ -66,6 +66,7 @@
                     <asp:ControlParameter ControlID="ddlClientType" DefaultValue="%" Name="ClientType" PropertyName="SelectedValue" Type="String" />
                 </SelectParameters>
             </asp:SqlDataSource>
+            <asp:Label ID="lblStatus" runat="server" Text=""></asp:Label>
         </div>
     </form>
 </body>

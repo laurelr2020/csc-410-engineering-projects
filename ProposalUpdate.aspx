@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProposalSubmission.aspx.cs" Inherits="ProposalSubmission" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProposalUpdate.aspx.cs" Inherits="ProposalUpdate" %>
 
 <!DOCTYPE html>
 
@@ -7,25 +7,34 @@
     <title>Proposal Submission</title>
 </head>
 <body>
-    <h2>Proposal Submission Form</h2>
+    <h2>Proposal Update Form</h2>
     <form id="form1" runat="server">
 
   <table>
      <tr>
-         <td>
-             <asp:Label ID="titleLabel" runat="server" Text="Enter Title for Your Proposal"></asp:Label>
-             <br />
-             <asp:TextBox ID="titleText" runat="server" Columns="50"></asp:TextBox>
+        <td>
+            <asp:Label ID="selectProposalLabel" runat="server" Text="Select a Proposal"></asp:Label>
+            <br />
+            <asp:DropDownList ID="proposalDropDown" runat="server" AppendDataBoundItems="True"
+                DataTextField="Title"
+                DataValueField="Title"
+                AutoPostBack ="False">
+            </asp:DropDownList>
 
-         </td>
-     </tr>
+            <asp:Button ID="btnSelectProposal" runat="server" Text="Select" OnClick="btnSelectProposal_Click" />
+
+            <asp:SqlDataSource ID="proposalDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
+                SelectCommand="SELECT [Title] FROM [Projects]"></asp:SqlDataSource>
+        </td>
+      </tr>
       <tr>
         <td>
             <asp:Label ID="needLabel" runat="server" Text="Choose a Type of Need"></asp:Label>
             <br />
             <asp:DropDownList ID="needDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="TypeOfNeed"
-                DataValueField="TypeOfNeed"></asp:DropDownList>
+                DataValueField="TypeOfNeed"
+                AutoPostBack ="False"></asp:DropDownList>
             <asp:SqlDataSource ID="needDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
                 SelectCommand="SELECT [TypeOfNeed] FROM [Need] ORDER BY [TypeOfNeed]">
             </asp:SqlDataSource>
@@ -37,7 +46,8 @@
             <br />
             <asp:DropDownList ID="clientTypeDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="ClientType"
-                DataValueField="ClientType"></asp:DropDownList>
+                DataValueField="ClientType"
+                AutoPostBack ="False"></asp:DropDownList>
 
             <asp:SqlDataSource ID="cleintTypeDataSource" runat="server" 
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
@@ -51,7 +61,8 @@
             <br />
             <asp:DropDownList ID="orgCategoryDropDown" runat="server" AppendDataBoundItems="True"
                 DataTextField="OrganizationCategory"
-                DataValueField="OrganizationCategory"></asp:DropDownList>
+                DataValueField="OrganizationCategory"
+                AutoPostBack ="False"></asp:DropDownList>
 
             <asp:SqlDataSource ID="orgCategoryDataSource" runat="server"
                 ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
@@ -67,35 +78,13 @@
        </td>
      </tr>
     </table>
-       <asp:Button ID="submitButton" runat="server" Text="Submit Proposal" AutoPostBack="False" OnClick="ProposalSubmission_Click" />
+       <asp:Button ID="submitButton" runat="server" Text="Update Proposal" AutoPostBack="False" OnClick="ProposalSubmission_Click" />
         <br />
         <asp:Label ID="statusLabel" runat="server" Text=""></asp:Label><br />
         <asp:Label ID="titleCharMaxLabel" runat="server" Text=""></asp:Label><br />
-        <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label><br />
+        <asp:Label ID="descriptionCharMaxLabel" runat="server" Text=""></asp:Label>
 
-
-        <asp:SqlDataSource ID="proposalSubmissionDataSource" runat="server" 
-            ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>"
-            InsertCommand="INSERT INTO [Projects] ([TypeOfNeed], [Description], [Title], [ClientType], [OrganizationCategory]) 
-                            VALUES (@TypeOfNeed, @Description, @Title, @ClientType, @OrganizationCategory)">
-            <InsertParameters>
-                <asp:Parameter Name="TypeOfNeed" Type="String" />
-                <asp:Parameter Name="Description" Type="String" />
-                <asp:Parameter Name="Title" Type="String" />
-                <asp:Parameter Name="ClientType" Type="String" />
-                <asp:Parameter Name="OrganizationCategory" Type="String" />
-            </InsertParameters>
-        </asp:SqlDataSource>
-
-        <asp:SqlDataSource ID="projectStatusDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:EngineeringProjectsConnectionString %>" 
-            InsertCommand="INSERT INTO [ProjectStatus] ([ProjectID], [Stat], [DateUpdated])
-                            VALUES(@ProjectID, @Status, @DateUpdated)">
-             <InsertParameters>
-                <asp:Parameter Name="ProjectID" Type="Int32" />
-                <asp:Parameter Name="Status" Type="String" />
-                <asp:Parameter Name="DateUpdated" Type="DateTime" />
-            </InsertParameters>
-        </asp:SqlDataSource>
+        <br />
 
     </form>
 </body>
